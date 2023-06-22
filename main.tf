@@ -1,14 +1,14 @@
 provider "aws"{
-region = "us-east-1"
-access_key= "AKIAQN2UCWBUFQ2SUUCA"
-secret_key= "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"
+region = "us-east-2"
+access_key= "AKIARQ22MT2V4ZTRAS7Y"
+secret_key= "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"
 }
 
 # 1. Create a vpc
 resource "aws_vpc" "edu-vpc" {
   cidr_block = "10.0.0.0/16"
   tags = {
-  Name = "edureka"
+  Name = "main"
 }
 }
 
@@ -31,7 +31,7 @@ cidr_block = "0.0.0.0/0"
      gateway_id      = aws_internet_gateway.gw.id
 }
  tags = {
-     Name = "edureka"
+     Name = "main"
    }
  }
 
@@ -39,10 +39,10 @@ cidr_block = "0.0.0.0/0"
  resource "aws_subnet" "subnet-1" {
    vpc_id            = aws_vpc.edu-vpc.id
    cidr_block        = "10.0.1.0/24"
-   availability_zone = "us-east-1a"
+   availability_zone = "us-east-2a"
 
    tags = {
-     Name = "edu-subnet"
+     Name = "main-subnet"
    }
  }
 # 5. Associate route table to subnet
@@ -107,10 +107,10 @@ resource "aws_eip" "one" {
 # 9. Create aws_instance
 
 resource "aws_instance" "web-server-instance1" {
-   ami               = "ami-0747bdcabd34c712a"
+   ami               = "ami-0e820afa569e84cc1"
    instance_type     = "t2.micro"
-   availability_zone = "us-east-1a"
-   key_name          = "mykey14july"
+   availability_zone = "us-east-2a"
+   key_name          = "santhosh"
 depends_on                = [aws_eip.one]
    network_interface {
      device_index         = 0
