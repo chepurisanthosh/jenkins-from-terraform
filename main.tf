@@ -119,10 +119,12 @@ depends_on                = [aws_eip.one]
 
    user_data = <<-EOF
                  #!/bin/bash
-                 sudo apt update -y
-                 sudo apt install apache2 -y
-                 sudo systemctl start apache2
-                 sudo bash -c 'echo your very first web server > /var/www/html/index.html'
+       sudo yum update -y
+       sudo amazon-linux-extras install java-openjdk11 -y
+       sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+       sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+       sudo yum install jenkins -y
+       sudo systemctl start jenkins",
                  EOF
    tags = {
      Name = "web-server"
